@@ -3,6 +3,7 @@
 package uncore.tilelink2
 
 import Chisel._
+import util.ClockDivider
 
 object LFSR16Seed
 {
@@ -225,9 +226,7 @@ trait RRTest1Bundle
 
 trait RRTest1Module extends Module with HasRegMap
 {
-  val clocks = Module(new ClockDivider)
-  clocks.io.clock_in := clock
-  clocks.io.reset_in := reset
+  val clocks = Module(new ClockDivider(4))
 
   def x(bits: Int) = {
     val field = UInt(width = bits)
